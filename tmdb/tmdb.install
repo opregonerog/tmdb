@@ -1,0 +1,511 @@
+<?php
+  function tmdb_enable(){
+  	$t = get_t();
+  	/*
+  	/ Create genre vocabulary
+  	*/
+  	$genre = array(
+      'name' => 'Genre',
+      'machine_name' => 'genre',
+      'description' => t('Vocabulary of genre'),
+      'module' => 'taxonomy',
+      'hierarchy' => 0,
+	);
+  taxonomy_vocabulary_save((object) $genre);
+	/*
+  	/ Create content type Actor
+  	*/
+	$actor = array(
+		'type'=>'actor',
+		'name'=>$t('Actor'),
+		'description'=>$t('Create a new Actor'),
+		'title_label'=>$t('Actor'),
+		'base'=>'node_content',
+		'custom'=>TRUE,
+	);
+	$node_type = node_type_set_defaults($actor);
+	node_type_save($node_type);
+	// Create Actor fields
+	$fields = array(
+	  // Actor photo
+	  'actor_photo' => array(
+	    'field_name' => 'actor_photo',	    
+	    'required' => TRUE,
+		'type' => 'text',		
+	  ),
+	  // Actor Popularity
+	  'actor_popularity' => array(
+	    'field_name' => 'actor_popularity',	    
+	    'required' => TRUE,
+		'type' => 'number_integer',		
+	  ),
+	  // Actor Bio
+	  'actor_bio' => array(
+	    'field_name' => 'actor_bio',	    
+	    'required' => TRUE,
+		'type' => 'text_long',		
+	  ),
+	  // Actor Name
+	  'actor_name' => array(
+	    'field_name' => 'actor_name',		
+		'required' => TRUE,
+		'type' => 'text',
+      ),
+      // Actor Birthdate
+	  'actor_birthdate' => array(
+	    'field_name' => 'actor_birthdate',	    
+	    'required' => TRUE,	
+		'type' => 'datetime',		
+	  ),
+	  // Actor Place of birth
+	  'actor_birth_place' => array(
+	    'field_name' => 'actor_birth_place',		
+		'required' => TRUE,
+		'type' => 'text',
+      ),
+	   // Actor Deathdate
+	  'actor_deathdate' => array(
+	    'field_name' => 'actor_deathdate',	    	    
+		'type' => 'datetime',		
+	  ),
+	  // Actor Website
+	  'actor_website' => array(
+	    'field_name' => 'actor_website',				
+		'type' => 'text',
+      ),
+	  // Actor Galery
+	  'actor_galery' => array(
+	    'field_name' => 'actor_galery',	    
+		'type' => 'text_long',		
+	  ),	
+    );
+    foreach($fields as $field) {	  
+	  field_create_field($field);
+	}
+	$instances = array(
+	//Actor Photo
+	'actor_photo' => array(
+	  'field_name' => 'actor_photo',
+	  'label' => $t('Actor Photo'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Actor Popularity
+	'actor_popularity' => array(
+	  'field_name' => 'actor_popularity',
+	  'label' => $t('Actor Popularity'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Actor Bio
+	'actor_bio' => array(
+	  'field_name' => 'actor_bio',
+	  'label' => $t('Actor Bio'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textarea'
+	  ),
+	),
+	// Actor Name
+	'actor_name' => array(
+	  'field_name' => 'actor_name',
+	  'label' => $t('Actor Name'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Actor Birthdate
+	'actor_birthdate' => array(
+	  'field_name' => 'actor_birthdate',
+	  'label' => $t('Actor Birthdate'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'date_popup'
+	  ),
+	),
+	// Actor place of Birth
+	'actor_birth_place' => array(
+	  'field_name' => 'actor_birth_place',
+	  'label' => $t('Actor place of Birth'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Actor Deathdate
+	'actor_deathdate' => array(
+	  'field_name' => 'actor_deathdate',
+	  'label' => $t('Actor Deathdate'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'date_popup'
+	  ),
+	),
+	// Actor Website
+	'actor_website' => array(
+	  'field_name' => 'actor_website',
+	  'label' => $t('Actor Website'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),	
+	//Actor Galery
+	'actor_galery' => array(
+	  'field_name' => 'actor_galery',
+	  'label' => $t('Actor Galery'),
+	  'entity_type' => 'node',
+	  'bundle' => 'actor',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textarea'
+	  ),
+	),
+	);
+
+	foreach($instances as $instance) {
+		$instance['entity_field'] = 'node';
+		$instance['bundle'] = 'actor';
+		field_create_instance($instance);
+	}
+
+	$movie = array(
+		'type'=>'movie',
+		'name'=>$t('Movie'),
+		'description'=>$t('Create a new Movie'),
+		'title_label'=>$t('Movie'),
+		'base'=>'node_content',
+		'custom'=>TRUE,
+	);
+
+	$node_type = node_type_set_defaults($movie);
+	node_type_save($node_type);
+
+	$fields = array(
+	  // Movie Title
+	  'movie_title' => array(
+	    'field_name' => 'movie_title',		
+		'required' => TRUE,
+		'type' => 'text',
+      ),
+      // Movie Trailer
+	  'movie_trailer' => array(
+	    'field_name' => 'movie_trailer',		
+		'required' => TRUE,
+		'type' => 'text',
+      ),
+	  // Movie Photo
+	  'movie_photo' => array(
+	    'field_name' => 'movie_photo',	    
+	    'required' => TRUE,
+		'type' => 'text',		
+	  ),
+	  // Movie Genres
+	  'movie_genres' => array(
+	    'field_name' => 'movie_genres',
+		'type' => 'taxonomy_term_reference',
+		'cardinality' => -1,
+		'settings' => arraY(
+		  'allowed_values' => array(
+		    array(
+			  'vocabulary' => 'genre',
+			  'parent' => 0,
+			),
+		  ),
+		),
+	  ),
+	  // Movie Alternative Titles
+	  'movie_alternative_titles' => array(
+	    'field_name' => 'movie_alternative_titles',		
+		'required' => TRUE,
+		'type' => 'text_long',
+      ),
+      // Movie Overview
+	  'movie_overview' => array(
+	    'field_name' => 'movie_overview',		
+		'required' => TRUE,
+		'type' => 'text_long',
+      ),
+      // Movie Production Companies
+	  'movie_production_companies' => array(
+	    'field_name' => 'movie_production_companies',		
+		'required' => TRUE,
+		'type' => 'text_long',
+      ),
+      // Movie Release Date
+	  'movie_release_date' => array(
+	    'field_name' => 'movie_release_date',	    
+	    'required' => TRUE,	
+		'type' => 'datetime',		
+	  ),
+	  // Movie Original Language
+	  'movie_original_language' => array(
+	    'field_name' => 'movie_original_language',		
+		'required' => TRUE,
+		'type' => 'text',
+      ),
+      // Movie Cast
+	  'movie_cast' => array(
+	    'field_name' => 'movie_cast',
+		'type' => 'entityreference',
+		'cardinality' => -1,
+		'settings' => arraY(
+		  'allowed_values' => array(
+		    array(
+			  'target_type' => 'node',
+			  'handler_settings' => array('target_bundles' => array('actor')),
+			),
+		  ),
+		),
+	  ),
+	  // Movie Popularity
+	  'movie_popularity' => array(
+	    'field_name' => 'movie_popularity',	    
+	    'required' => TRUE,
+		'type' => 'number_integer',		
+	  ),	
+    );
+    foreach($fields as $field) {	  
+	  field_create_field($field);
+	}
+	$instances = array(
+	// Movie Title
+	'movie_title' => array(
+	  'field_name' => 'movie_title',
+	  'label' => $t('Movie Title'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Movie Trailer
+	'movie_trailer' => array(
+	  'field_name' => 'movie_trailer',
+	  'label' => $t('Movie Trailer'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Movie Photo
+	'movie_photo' => array(
+	  'field_name' => 'movie_photo',
+	  'label' => $t('Movie Photo'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),	
+	// Movie Genres
+	'movie_genres' => array(
+	  'field_name' => 'movie_genres',
+	  'label' => $t('Movie Genres'),		
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',			
+	  'description'=> t('Movie Genres'),
+	  'required' => true,
+	  'widget' => array(
+	    'type' => 'option_select',
+	  ),
+	),
+	// Movie Alternative Titles 
+	'movie_alternative_titles' => array(
+	  'field_name' => 'movie_alternative_titles',
+	  'label' => $t('Movie alternative titles'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textarea'
+	  ),
+	),
+	// Movie Overview
+	'movie_overview' => array(
+	  'field_name' => 'movie_overview',
+	  'label' => $t('Movie Overview'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textarea'
+	  ),
+	),
+	// Movie Producion Companies
+	'movie_production_companies' => array(
+	  'field_name' => 'movie_production_companies',
+	  'label' => $t('Movie production companies'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textarea'
+	  ),
+	),
+	// Movie Release Date
+	'movie_release_date' => array(
+	  'field_name' => 'movie_release_date',
+	  'label' => $t('Movie Release Date'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'date_popup'
+	  ),
+	),
+	// Movie Original Language
+	'movie_original_language' => array(
+	  'field_name' => 'movie_original_language',
+	  'label' => $t('Movie Original Language'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+	// Movie Cast
+	'movie_cast' => array(
+	  'field_name' => 'movie_cast',
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'label' => 'Movie Cast',
+	  'cardinality' => 1,
+	  'description' => '',
+	  'widget' => array(
+	    'type' => 'option_select'
+	   ),
+	),	        
+	// Movie Popularity
+	'movie_popularity' => array(
+	  'field_name' => 'movie_popularity',
+	  'label' => $t('Movie Popularity'),
+	  'entity_type' => 'node',
+	  'bundle' => 'movie',
+	  'required' => TRUE,
+	  'widget' =>array(
+	    'type' => 'textfield'
+	  ),
+	),
+  );
+  foreach($instances as $instance) {
+    $instance['entity_field'] = 'node';
+	$instance['bundle'] = 'movie';
+	field_create_instance($instance);
+  }
+  variable_set('statistics_count_content_views', 1);
+  variable_set('site_frontpage', "home");
+  drupal_install_schema('tmdb');
+}
+
+function tmdb_disable(){
+  // Remove existing content
+  $query = 'SELECT nid ';
+  $query .= 'FROM {node} ';
+  $query .= 'WHERE {node}.type = :type ';	
+  $result = db_query( $query, array(':type'	=> 'movie') );
+  $nids = array();
+  foreach( $result as $row ) {
+    $nids[] = $row->nid;
+  }
+  node_delete_multiple( $nids );	
+  // Delete fields and instances
+  foreach( field_info_instances('node', 'movie') as $field_name	=> $instance ) {
+    field_delete_instance($instance);
+  }
+  // Delete content type
+  node_type_delete('movie'); 
+  // Remove existing content
+  $query = 'SELECT nid ';
+  $query .= 'FROM {node} ';
+  $query .= 'WHERE {node}.type = :type ';
+  $result = db_query( $query, array(':type'	=> 'actor') );
+  $nids = array();
+  foreach( $result as $row ) {
+    $nids[] = $row->nid;
+  }
+  node_delete_multiple( $nids );	
+  // Delete fields and instances
+  foreach( field_info_instances('node', 'actor') as $field_name	=> $instance ) {
+    field_delete_instance($instance);
+  }
+  // Delete content type
+  node_type_delete('actor');
+  $genres = taxonomy_vocabulary_machine_name_load('genre');
+  taxonomy_vocabulary_delete($genres->vid);
+  drupal_uninstall_schema('tmdb');
+}
+
+function tmdb_schema(){
+  $schema['movies_recomendations'] = array(
+    'description' => 'Sugested Movies',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'uid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'nid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('uid','nid'),
+  );
+  $schema['wish_list'] = array(
+    'description' => 'Sugested Movies',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'uid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'nid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('uid','nid'),
+  );
+  return $schema;
+}

@@ -1,0 +1,88 @@
+<style type="text/css">
+		* {
+		margin: 0;
+		padding: 0;
+		font-family: sans-serif;
+		}
+		#bandaPrincipal, #otrasPeliculas {
+		    background: #d2d2d2;
+		    width: 100%;
+		    display: inline-block;
+		}
+		#otrasPeliculas {
+		    margin: 3% 0 0px;
+		}
+		#actoresDelMomento {
+		    margin: 1% 0 0;
+		}
+		div#contenedorPeliculas {
+		    width: 95%;
+		    margin: auto;
+		    text-align: center;
+		}
+		.headerSection {
+		    text-align: center;
+		    font-size: 1.7em;
+		    padding: 1.4% 0 1.8%;
+		}
+		.peliculaPrincipal, .peliculaSecundaria {
+		    width: 8%;
+		    display: inline-block;
+		    margin: 0 0.8% 2%;
+		    background: #c3c3c3;
+		    min-width: 105px;
+		}
+		.peliculaPrincipal img, .peliculaSecundaria img {
+		    width: 100%;
+		    height: auto;
+		}
+		.contentInfo {
+		    background: #c3c3c3;
+		    font-family: sans-serif;
+		}
+		h3.titlePelicula, .actorDestacado h3{
+		    font-size: 1.1em;
+		    text-align: center;
+		    text-transform: uppercase;
+		    padding: 7% 0;
+		}
+		#otrasPeliculas h3.titlePelicula {
+			font-size: 0.7em;
+    		text-align: left;
+    		margin-left: 5%;
+		}
+		span {
+		    font-size: 0.8em;
+		    width: 90%;
+		    display: block;
+		    text-align: justify;
+		    color: #525252;
+		    padding: 0 5% 4px;
+		}
+		span a {
+		    text-align: right;
+		    color: #505050;
+		    font-weight: bold;
+		    text-decoration: none;
+		    float: right;
+		}
+		div#contenedorActores {
+		    text-align: center;
+		}
+		.actorDestacado {
+		    width: 100px;
+		    display: inline-block;
+		    margin: 0 1%;
+		}
+		.actorDestacado img {
+		    width: 100%;
+		    height: auto;
+		    border-radius: 50%;
+		    box-shadow: 0px 1px 3px 3px #b1b1b1;
+		}
+		#page #search-block-form input.form-submit, #search-form input.form-submit{
+			background: none;
+			text-indent: inherit;
+      width: 100px;
+		}
+	</style>

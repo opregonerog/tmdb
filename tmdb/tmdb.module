@@ -1,0 +1,153 @@
+<?php
+function tmdb_menu() {
+  $items['admin/config/system/tmdb'] = array(
+    'title' => t('TMDB'),
+    'description' => 'View events that have recently been logged.',
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('access content'),
+    'page arguments' => array('tmdb_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'tmdb.inc',
+  );
+  $items['home'] = arraY(
+    'description' => "Movie full content",
+    'page callback' => 'movie_home',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['ajax/add_movie'] = array(
+    'page callback' => 'add_to_wishlist',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Implementa hook_theme().
+ */
+function tmdb_theme() {
+  return array(
+    'home' => array(
+      'template' => '/templates/home',      
+    ),
+    'search-result' => array(
+      'template' => '/templates/search-result',      
+    ),
+    'node__actor' => [
+      'template' => '/templates/node--actor',
+      'base hook' => 'node',
+    ],
+    'node__movie' => [
+      'template' => '/templates/node--movie',
+      'base hook' => 'node',
+    ],
+  );
+}
+
+/**
+* Implements of hook_init()
+**/
+
+function tmdb_init(){
+  drupal_add_js(drupal_get_path('module','tmdb').'/js/tmdb.js');
+}
+
+/**
+* Implements of hook_views_api()
+**/
+
+Function tmdb_views_api(){
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module','tmdb'),
+    'template path' => drupal_get_path('module', 'tmdb'),
+  );
+  
+}
+
+/**
+* Implements hook_views_default_views().
+**/
+
+function tmdb_views_default_views() {
+  $files = file_scan_directory(drupal_get_path('module','tmdb').'/views','/.view/');
+  foreach($files as $filepath => $file) {
+    require $filepath;
+    if(isset($view)) {
+      $views[$view->name] = $view;
+    }
+  }
+  if($views) {
+    return $views;
+  }
+}
+
+/**
+* Implements hook_node_view().
+**/
+
+function tmdb_node_view($node, $view_mode, $langcode) {
+  if($node->type=="movie" and $view_mode=="full") {
+    global $user;
+    try{
+      $query = db_insert('movies_recomendations')
+      ->fields(array (        
+        'uid' => $user->uid,
+        'nid' => $node->nid,
+      ))
+      ->execute();
+    } catch (Exception $e) {
+      $e;
+    }    
+  }
+}
+
+/**
+* Implements hook_form_alter().
+**/
+
+function tmdb_form_alter(&$form, &$form_state, $form_id){
+  if ($form_id == 'search_block_form'){    
+    $form['search_block_form']['#attributes']['placeholder']="Search for movie or actor";
+    $form['actions']['submit']['#value']=t("Find"); ;  
+    $form['search_block_form']['#size'] = 20;  
+  }
+}
+
+/**
+* Implements hook_theme_registry_alter().
+**/
+
+function tmdb_theme_registry_alter(&$theme_registry){  
+  $module_path = drupal_get_path('module', 'tmdb');
+  $theme_registry['search_result']['theme path'] = $module_path;
+  $theme_registry['search_result']['template'] = $module_path . '/templates/search-result';
+}
+
+/**
+* Implements hook_page_views().
+**/
+
+function tmdb_page_alter(&$page) {
+  unset($page['sidebar_first']);
+}
+
+function movie_home(){
+  return theme('home');
+}
+
+function add_to_wishlist(){
+  global $user;
+  $uid = $user->uid;
+  $nid = $_POST["nid"];
+  try {
+      $query = db_insert('wish_list')
+      ->fields(array (        
+        'uid' => $uid,
+        'nid' => $nid,
+      ))
+    ->execute();
+  } catch (Exception $e) {
+      $e;
+  }    
+}

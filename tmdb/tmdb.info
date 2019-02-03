@@ -1,0 +1,11 @@
+name = TMDB
+description = Módulo que integra el api de TMDB
+core = 7.x
+package = jobcity
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = views
+configure = admin/config/system/TMDB
+stylesheets[all][] = css/tmdb.css

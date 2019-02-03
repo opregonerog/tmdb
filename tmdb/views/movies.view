@@ -1,0 +1,197 @@
+<?php
+ 
+$view = new view();
+$view->name = 'movies';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'node';
+$view->human_name = 'Movies';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Movies';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['row_plugin'] = 'fields';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Movie Photo */
+$handler->display->display_options['fields']['movie_photo']['id'] = 'movie_photo';
+$handler->display->display_options['fields']['movie_photo']['table'] = 'field_data_movie_photo';
+$handler->display->display_options['fields']['movie_photo']['field'] = 'movie_photo';
+/* Field: Content: Movie Release Date */
+$handler->display->display_options['fields']['movie_release_date']['id'] = 'movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['table'] = 'field_data_movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['field'] = 'movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['settings'] = array(
+  'format_type' => 'long',
+  'custom_date_format' => '',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Movie Genres */
+$handler->display->display_options['fields']['movie_genres']['id'] = 'movie_genres';
+$handler->display->display_options['fields']['movie_genres']['table'] = 'field_data_movie_genres';
+$handler->display->display_options['fields']['movie_genres']['field'] = 'movie_genres';
+$handler->display->display_options['fields']['movie_genres']['delta_offset'] = '0';
+/* Field: Content: Link */
+$handler->display->display_options['fields']['view_node']['id'] = 'view_node';
+$handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
+$handler->display->display_options['fields']['view_node']['field'] = 'view_node';
+/* Sort criterion: Content: Movie Release Date (movie_release_date) */
+$handler->display->display_options['sorts']['movie_release_date_value']['id'] = 'movie_release_date_value';
+$handler->display->display_options['sorts']['movie_release_date_value']['table'] = 'field_data_movie_release_date';
+$handler->display->display_options['sorts']['movie_release_date_value']['field'] = 'movie_release_date_value';
+$handler->display->display_options['sorts']['movie_release_date_value']['order'] = 'DESC';
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'movie' => 'movie',
+);
+
+/* Display: Block */
+$handler = $view->new_display('block', 'Block', 'block');
+
+/* Display: Block */
+$handler = $view->new_display('block', 'Block', 'block_1');
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Movie Popularity (movie_popularity) */
+$handler->display->display_options['sorts']['movie_popularity_value']['id'] = 'movie_popularity_value';
+$handler->display->display_options['sorts']['movie_popularity_value']['table'] = 'field_data_movie_popularity';
+$handler->display->display_options['sorts']['movie_popularity_value']['field'] = 'movie_popularity_value';
+$handler->display->display_options['sorts']['movie_popularity_value']['order'] = 'DESC';
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page_1');
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['pager']['options']['items_per_page'] = '';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Movie Photo */
+$handler->display->display_options['fields']['movie_photo']['id'] = 'movie_photo';
+$handler->display->display_options['fields']['movie_photo']['table'] = 'field_data_movie_photo';
+$handler->display->display_options['fields']['movie_photo']['field'] = 'movie_photo';
+$handler->display->display_options['fields']['movie_photo']['label'] = '';
+$handler->display->display_options['fields']['movie_photo']['alter']['strip_tags'] = TRUE;
+$handler->display->display_options['fields']['movie_photo']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['movie_photo']['element_default_classes'] = FALSE;
+$handler->display->display_options['fields']['movie_photo']['type'] = 'text_plain';
+/* Field: Content: Movie Release Date */
+$handler->display->display_options['fields']['movie_release_date']['id'] = 'movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['table'] = 'field_data_movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['field'] = 'movie_release_date';
+$handler->display->display_options['fields']['movie_release_date']['label'] = 'Release Date';
+$handler->display->display_options['fields']['movie_release_date']['settings'] = array(
+  'format_type' => 'long',
+  'custom_date_format' => '',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Movie Genres */
+$handler->display->display_options['fields']['movie_genres']['id'] = 'movie_genres';
+$handler->display->display_options['fields']['movie_genres']['table'] = 'field_data_movie_genres';
+$handler->display->display_options['fields']['movie_genres']['field'] = 'movie_genres';
+$handler->display->display_options['fields']['movie_genres']['delta_offset'] = '0';
+/* Field: Content: Link */
+$handler->display->display_options['fields']['view_node']['id'] = 'view_node';
+$handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
+$handler->display->display_options['fields']['view_node']['field'] = 'view_node';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'movie' => 'movie',
+);
+/* Filter criterion: Content: Movie Release Date (movie_release_date) */
+$handler->display->display_options['filters']['movie_release_date_value']['id'] = 'movie_release_date_value';
+$handler->display->display_options['filters']['movie_release_date_value']['table'] = 'field_data_movie_release_date';
+$handler->display->display_options['filters']['movie_release_date_value']['field'] = 'movie_release_date_value';
+$handler->display->display_options['filters']['movie_release_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['movie_release_date_value']['expose']['operator_id'] = 'movie_release_date_value_op';
+$handler->display->display_options['filters']['movie_release_date_value']['expose']['label'] = 'Release Date';
+$handler->display->display_options['filters']['movie_release_date_value']['expose']['operator'] = 'movie_release_date_value_op';
+$handler->display->display_options['filters']['movie_release_date_value']['expose']['identifier'] = 'movie_release_date_value';
+$handler->display->display_options['filters']['movie_release_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+);
+/* Filter criterion: Content: Movie Genres (movie_genres) */
+$handler->display->display_options['filters']['movie_genres_tid']['id'] = 'movie_genres_tid';
+$handler->display->display_options['filters']['movie_genres_tid']['table'] = 'field_data_movie_genres';
+$handler->display->display_options['filters']['movie_genres_tid']['field'] = 'movie_genres_tid';
+$handler->display->display_options['filters']['movie_genres_tid']['exposed'] = TRUE;
+$handler->display->display_options['filters']['movie_genres_tid']['expose']['operator_id'] = 'movie_genres_tid_op';
+$handler->display->display_options['filters']['movie_genres_tid']['expose']['label'] = 'Genres';
+$handler->display->display_options['filters']['movie_genres_tid']['expose']['operator'] = 'movie_genres_tid_op';
+$handler->display->display_options['filters']['movie_genres_tid']['expose']['identifier'] = 'movie_genres_tid';
+$handler->display->display_options['filters']['movie_genres_tid']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+);
+$handler->display->display_options['filters']['movie_genres_tid']['type'] = 'select';
+$handler->display->display_options['filters']['movie_genres_tid']['vocabulary'] = 'genre';
+/* Filter criterion: Content: Title */
+$handler->display->display_options['filters']['title']['id'] = 'title';
+$handler->display->display_options['filters']['title']['table'] = 'node';
+$handler->display->display_options['filters']['title']['field'] = 'title';
+$handler->display->display_options['filters']['title']['operator'] = 'contains';
+$handler->display->display_options['filters']['title']['exposed'] = TRUE;
+$handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+$handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+$handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+$handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+$handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+);
+$handler->display->display_options['path'] = 'movie-list';
